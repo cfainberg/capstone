@@ -1,5 +1,5 @@
 //Import React
-import React from 'react';
+import React , { Component, useState } from 'react';
 
 //Import all required component
 import { Button } from 'native-base';
@@ -15,8 +15,19 @@ import {
     KeyboardAvoidingView,
   } from 'react-native';
 
-const inventario = () => {
-  global.currentScreenIndex = 'inventario';
+const bodega = () => {
+  const [items, setItems] = useState(['#001', '#002', '#003', '#005', '#006']);
+  const [itemsFiltrados, setItemsFiltrados] = useState(items)
+  global.currentScreenIndex = 'bodega';
+  const searchItem = (text) => {
+    const filteredItems = items.filter((item) => item.includes(text))
+    console.log(filteredItems)
+    setItemsFiltrados(filteredItems)
+  
+  }
+  const renderResults = () => {
+    return (itemsFiltrados.map((item) => <Text>{item}</Text>))
+  }
   return ( 
     <View style={styles.mainBody}>
         <View style={{ flex: 1, alignItems: 'center', marginTop: 100 }}>
@@ -29,9 +40,14 @@ const inventario = () => {
                     margin: 5,
                     }}
             />
-            <Button style={styles.buttonStyle}><Text style={styles.inputStyle}>BUSCAR</Text></Button>
-            <Button style={styles.buttonStyle}><Text style={styles.inputStyle}>MAPA</Text></Button>
-            <Button style={styles.buttonStyle}><Text style={styles.inputStyle}>HOME</Text></Button>
+
+        </View>
+        <View style={{ flex: 2, alignItems: 'center', marginTop: 0 }}>
+   
+      <TextInput
+      style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
+       onChangeText={text => searchItem(text)} />
+      {renderResults()}  
         </View>
     </View>
   );
@@ -70,4 +86,4 @@ const styles = StyleSheet.create({
 
     } 
 );
-export default inventario;
+export default bodega;

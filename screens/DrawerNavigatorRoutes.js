@@ -16,13 +16,13 @@ import inventario from './drawerScreens/inventario';
 import inventarioAdd from './drawerScreens/inventarioAdd';
 import inventarioDel from './drawerScreens/inventarioDel';
 import bodega from './drawerScreens/bodega';
-import bodegaSearch from './drawerScreens/bodegaSearch';
+
 
 const FirstActivity_StackNavigator = createStackNavigator({
   First: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      title: 'Home Screen',
+      title: 'Homsdfghjeen',
       headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#a3003c',
@@ -37,7 +37,7 @@ const SecondActivity_StackNavigator = createStackNavigator({
     screen: SettingsScreen,
     navigationOptions: ({ navigation }) => ({
       title: 'Setting Screen',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#a3003c',
       },
@@ -50,18 +50,21 @@ const ThirdActivity_StackNavigator = createStackNavigator({
     screen: inventario,
     navigationOptions: ({ navigation }) => ({
       title: 'Inventario',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#a3003c',
       },
       headerTintColor: '#fff',
     }),
-  },
-  Second: {
+  }
+});
+
+const FActivity_StackNavigator = createStackNavigator({
+  First: {
     screen: bodega,
     navigationOptions: ({ navigation }) => ({
       title: 'bodega',
-      headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
         backgroundColor: '#a3003c',
       },
@@ -92,29 +95,22 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
     },
   
     inventarioAdd: {
-      screen: SecondActivity_StackNavigator,
+      screen: ThirdActivity_StackNavigator,
       navigationOptions: {
         drawerLabel: 'inventarioAdd',
       },
     },
     intentarioDel: {
-      screen: SecondActivity_StackNavigator,
+      screen: ThirdActivity_StackNavigator,
       navigationOptions: {
         drawerLabel: 'inventarioDel',
       }
     },
 
     bodega: {
-      screen: SecondActivity_StackNavigator,
+      screen: FActivity_StackNavigator,
       navigationOptions: {
         drawerLabel: 'bodega',
-      },
-    },
-
-    bodegaSearch: {
-      screen: SecondActivity_StackNavigator,
-      navigationOptions: {
-        drawerLabel: 'bodegaSearch',
       },
     }
   },

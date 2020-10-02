@@ -15,7 +15,7 @@ import {
     KeyboardAvoidingView,
   } from 'react-native';
 
-const inventario = () => {
+const inventario = ( {navigation}) => {
   global.currentScreenIndex = 'inventario';
   return ( 
     <View style={styles.mainBody}>
@@ -31,7 +31,7 @@ const inventario = () => {
             />
             <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioAdd')}><Text style={styles.inputStyle}>AGREGAR</Text></Button>
             <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioDel')}><Text style={styles.inputStyle}>ELIMINAR</Text></Button>
-            <Button style={styles.buttonStyle} onPress={() => navigation.goBack()}><Text style={styles.inputStyle}>BACK</Text></Button>
+            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('HomeScreen')}><Text style={styles.inputStyle}>BACK</Text></Button>
         </View>
     </View>
   );

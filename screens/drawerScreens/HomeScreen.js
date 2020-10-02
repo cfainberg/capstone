@@ -14,11 +14,43 @@ import {
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Alert
   } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
+  console.log(navigation);
   global.currentScreenIndex = 'HomeScreen';
+  const handleClick = (screenToNavigate) => {
+    if (screenToNavigate == 'logout') {
+      //navigation.toggleDrawer();
+      Alert.alert(
+        'Logout',
+        'Segurito?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {
+              return null;
+            },
+          },
+          {
+            text: 'Confirm',
+            onPress: () => {
+              AsyncStorage.clear();
+              navigation.navigate('Auth');
+              console.log('logout');
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      navigation.toggleDrawer();
+      global.currentScreenIndex = screenToNavigate;
+      navigation.navigate(screenToNavigate);
+    }
+  };
   
   return (
     <View style={styles.mainBody}>
@@ -40,7 +72,7 @@ const HomeScreen = () => {
             onPress={() => navigation.navigate('bodega')}><Text style={styles.inputStyle}>BODEGA</Text></Button>
             <Button 
             style={styles.buttonStyle} 
-            onPress={() => navigation.navigate('logout')}><Text style={styles.inputStyle}>LOGOUT</Text></Button>
+            onPress={() => handleClick('logout')}><Text style={styles.inputStyle}>LOGOUT</Text></Button>
         </View>
     </View>
   );
