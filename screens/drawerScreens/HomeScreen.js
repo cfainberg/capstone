@@ -66,10 +66,10 @@ const HomeScreen = ({navigation}) => {
             />
             <Button 
             style={styles.buttonStyle}
-             onPress={() => navigation.navigate('inventario')}><Text style={styles.inputStyle}>INVENTARIO</Text></Button>
+             onPress={() => navigation.navigate('pedido')}><Text style={styles.inputStyle}>CREAR ORDEN</Text></Button>
             <Button 
             style={styles.buttonStyle} 
-            onPress={() => navigation.navigate('bodega')}><Text style={styles.inputStyle}>BODEGA</Text></Button>
+            onPress={() => navigation.navigate('inventario')}><Text style={styles.inputStyle}>INVENTARIO</Text></Button>
             <Button 
             style={styles.buttonStyle} 
             onPress={() => handleClick('logout')}><Text style={styles.inputStyle}>LOGOUT</Text></Button>

@@ -1,5 +1,5 @@
 //Import React
-import React from 'react';
+import React , { Component, useState } from 'react';
 
 //Import all required component
 import { Button } from 'native-base';
@@ -15,8 +15,19 @@ import {
     KeyboardAvoidingView,
   } from 'react-native';
 
-const inventario = ( {navigation}) => {
-  global.currentScreenIndex = 'inventario';
+const pedido = ({navigation}) => {
+  const [items, setItems] = useState(['#001', '#002', '#003', '#005']);
+  const [itemsFiltrados, setItemsFiltrados] = useState(items)
+  global.currentScreenIndex = 'pedido';
+  const searchItem = (text) => {
+    const filteredItems = items.filter((item) => item.includes(text))
+    console.log(filteredItems)
+    setItemsFiltrados(filteredItems)
+  
+  }
+  const renderResults = () => {
+    return (itemsFiltrados.map((item) => <Text>{item}</Text>))
+  }
   return ( 
     <View style={styles.mainBody}>
         <View style={{ flex: 1, alignItems: 'center', marginTop: 100 }}>
@@ -29,10 +40,14 @@ const inventario = ( {navigation}) => {
                     margin: 5,
                     }}
             />
-            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioAdd')}><Text style={styles.inputStyle}>AGREGAR</Text></Button>
-            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioDel')}><Text style={styles.inputStyle}>ELIMINAR</Text></Button>
-            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('bodega')}><Text style={styles.inputStyle}>BUSCAR</Text></Button>
-            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('HomeScreen')}><Text style={styles.inputStyle}>BACK</Text></Button>
+
+        </View>
+        <View style={{ flex: 2, alignItems: 'center', marginTop: 0 }}>
+   
+      <TextInput
+      style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
+       onChangeText={text => searchItem(text)} />
+      {renderResults()}  
         </View>
     </View>
   );
@@ -71,4 +86,4 @@ const styles = StyleSheet.create({
 
     } 
 );
-export default inventario;
+export default pedido;
