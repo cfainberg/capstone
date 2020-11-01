@@ -8,16 +8,23 @@ import {
     TextInput,
     View,
     Text,
+    Alert,
     ScrollView,
     Image,
     Keyboard,
     TouchableOpacity,
     KeyboardAvoidingView,
+    Navigator
   } from 'react-native';
+  import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; 
+  import { useForm } from "react-hook-form";
+
 
 const pedido = ({navigation}) => {
-  const [items, setItems] = useState(['#001', '#002', '#003', '#005']);
-  const [itemsFiltrados, setItemsFiltrados] = useState(items)
+  const [items, setItems] = useState(['Nombre']);
+  const [itemsFiltrados, setItemsFiltrados] = useState(items) 
+
+
   global.currentScreenIndex = 'pedido';
   const searchItem = (text) => {
     const filteredItems = items.filter((item) => item.includes(text))
@@ -28,29 +35,34 @@ const pedido = ({navigation}) => {
   const renderResults = () => {
     return (itemsFiltrados.map((item) => <Text>{item}</Text>))
   }
-  return ( 
-    <View style={styles.mainBody}>
-        <View style={{ flex: 1, alignItems: 'center', marginTop: 100 }}>
-            <Image
-                    source={require('../../Image/logo2.png')}
-                    style={{
-                    width: '50%',
-                    height: 150,
-                    // resizeMode: 'center',
-                    margin: 5,
-                    }}
-            />
 
-        </View>
-        <View style={{ flex: 2, alignItems: 'center', marginTop: 0 }}>
-   
-      <TextInput
-      style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-       onChangeText={text => searchItem(text)} />
-      {renderResults()}  
-        </View>
+    return (
+      <KeyboardAwareScrollView>
+      <View style={styles.mainBody}>
+      <View style={{flex: 1, flexDirection: 'row-reverse'}}>
+      <Image
+              source={require('../../Image/logo2.png')}
+              style={{
+              width: 80,
+              height: 80,
+              resizeMode: 'contain',
+              margin: 0,
+              }}
+      />
+   <Text style={{ fontSize: 32, margin: 5 , padding: 20, color: 'white'}}>
+     Crear Orden
+    </Text>
     </View>
-  );
+    <View style={{ flex: 2, alignItems: 'center', marginTop: 0 }}>
+    <TextInput
+      style={{ height: 40, borderColor: 'black', borderWidth: 1,padding: 10 }}
+        />
+      {renderResults()}  
+    </View>
+    </View>
+    </KeyboardAwareScrollView>
+    );
+  
 };
 
 

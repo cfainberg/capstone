@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "npm.packageManager": "yarn",
+  "eslint.packageManager": "yarn",
+  "editor.rulers": [
+    100
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}

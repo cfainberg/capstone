@@ -16,7 +16,8 @@ import inventario from './drawerScreens/inventario';
 import inventarioAdd from './drawerScreens/inventarioAdd';
 import inventarioDel from './drawerScreens/inventarioDel';
 import bodega from './drawerScreens/bodega';
-import pedido from './drawerScreens/pedido'
+import pedido from './drawerScreens/pedido';
+import pedido2 from '/drawerScreens/pedido2';
 
 
 const FirstActivity_StackNavigator = createStackNavigator({
@@ -86,32 +87,33 @@ const hacerPedidos_StackNavigator = createStackNavigator({
     }),
   }
 });
-// const DActivity_StackNavigator = createStackNavigator({
-//   First: {
-//     screen: inventarioDel,
-//     navigationOptions: ({ navigation }) => ({
-//       title: 'inventarioDel',
-//       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
-//       headerStyle: {
-//         backgroundColor: '#a3003c',
-//       },
-//       headerTintColor: '#fff',
-//     }),
-//   } 
-// });
-// const AgActivity_StackNavigator = createStackNavigator({
-//     First: {
-//       screen: inventarioAdd,
-//       navigationOptions: ({ navigation }) => ({
-//         title: 'inventarioAdd',
-//         //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
-//         headerStyle: {
-//           backgroundColor: '#a3003c',
-//         },
-//         headerTintColor: '#fff',
-//       }),
-//     }
-//   });
+
+ const DActivity_StackNavigator = createStackNavigator({
+   First: {
+     screen: inventarioDel,
+     navigationOptions: ({ navigation }) => ({
+       title: 'inventarioDel',
+       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+       headerStyle: {
+         backgroundColor: '#a3003c',
+       },
+       headerTintColor: '#fff',
+     }),
+   } 
+ });
+ const AgActivity_StackNavigator = createStackNavigator({
+     First: {
+       screen: inventarioAdd,
+       navigationOptions: ({ navigation }) => ({
+         title: 'inventarioAdd',
+         //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+         headerStyle: {
+           backgroundColor: '#a3003c',
+         },
+         headerTintColor: '#fff',
+       }),
+     }
+   });
 const DrawerNavigatorRoutes = createDrawerNavigator(
   {
     HomeScreen: {
@@ -145,20 +147,21 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
       navigationOptions: {
         drawerLabel: 'pedido',
       },
-    }
+    },
+
   
-    // inventarioAdd: {
-    //   screen: AgActivity_StackNavigator,
-    //   navigationOptions: {
-    //     drawerLabel: 'inventarioAdd',
-    //   },
-    // },
-    // inventarioDel: {
-    //   screen: DActivity_StackNavigator,
-    //   navigationOptions: {
-    //     drawerLabel: 'inventarioDel',
-    //   }
-    // },
+   inventarioAdd: {
+     screen: AgActivity_StackNavigator,
+     navigationOptions: {
+       drawerLabel: 'inventarioAdd',
+       },
+     },
+   inventarioDel: {
+       screen: DActivity_StackNavigator,
+       navigationOptions: {
+         drawerLabel: 'inventarioDel',
+       }
+     },
   },
   {
     contentComponent: CustomSidebarMenu,

@@ -32,7 +32,6 @@ const inventario = ( {navigation}) => {
             <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioAdd')}><Text style={styles.inputStyle}>AGREGAR</Text></Button>
             <Button style={styles.buttonStyle} onPress={() => navigation.navigate('inventarioDel')}><Text style={styles.inputStyle}>ELIMINAR</Text></Button>
             <Button style={styles.buttonStyle} onPress={() => navigation.navigate('bodega')}><Text style={styles.inputStyle}>BUSCAR</Text></Button>
-            <Button style={styles.buttonStyle} onPress={() => navigation.navigate('HomeScreen')}><Text style={styles.inputStyle}>BACK</Text></Button>
         </View>
     </View>
   );

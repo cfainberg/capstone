@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "shinnn.stylelint",
+    "esbenp.prettier-vscode",
+    "mgmcdermott.vscode-language-babel"
+  ]
+}
