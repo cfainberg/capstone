@@ -14,10 +14,8 @@ import CustomSidebarMenu from './Components/CustomSidebarMenu';
 import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
 import inventario from './drawerScreens/inventario';
 import inventarioAdd from './drawerScreens/inventarioAdd';
-import inventarioDel from './drawerScreens/inventarioDel';
 import bodega from './drawerScreens/bodega';
 import pedido from './drawerScreens/pedido';
-import pedido2 from '/drawerScreens/pedido2';
 
 
 const FirstActivity_StackNavigator = createStackNavigator({
@@ -88,19 +86,19 @@ const hacerPedidos_StackNavigator = createStackNavigator({
   }
 });
 
- const DActivity_StackNavigator = createStackNavigator({
-   First: {
-     screen: inventarioDel,
-     navigationOptions: ({ navigation }) => ({
-       title: 'inventarioDel',
-       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
-       headerStyle: {
-         backgroundColor: '#a3003c',
-       },
-       headerTintColor: '#fff',
-     }),
-   } 
- });
+//  const DActivity_StackNavigator = createStackNavigator({
+//    First: {
+//      screen: inventarioDel,
+//      navigationOptions: ({ navigation }) => ({
+//        title: 'inventarioDel',
+//        //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+//        headerStyle: {
+//          backgroundColor: '#a3003c',
+//        },
+//        headerTintColor: '#fff',
+//      }),
+//    } 
+//  });
  const AgActivity_StackNavigator = createStackNavigator({
      First: {
        screen: inventarioAdd,
@@ -156,12 +154,7 @@ const DrawerNavigatorRoutes = createDrawerNavigator(
        drawerLabel: 'inventarioAdd',
        },
      },
-   inventarioDel: {
-       screen: DActivity_StackNavigator,
-       navigationOptions: {
-         drawerLabel: 'inventarioDel',
-       }
-     },
+
   },
   {
     contentComponent: CustomSidebarMenu,

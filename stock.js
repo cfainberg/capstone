@@ -1,11 +1,11 @@
 const productsLocation = {
-    '1A1': ["GLOBO 123", "VASOS 789"],
-    '1A2': ["GLOBO 478", "VASOS 541"],
-    '1A3': ["GLOBO 129", "VASOS 128"],
-    '2A': ["GLOBO 412", "PLATOS 247"],
-    '1B': [ "GLOBOS 542"],
-    '2B': ["SERVILLETAS 465"],
-    '1C': ["#666", "BOMBILLAS 565"],
+    '1A1': ["cp10116", "cp10117"],
+    '1A2': ["cpbla08", "cp3958"],
+    '1A3': ["cpbla11", "cp0057"],
+    '2A1': ["cpbla14", "cpbla13"],
+    '1B1': [ "cp0282"],
+    '2B2': ["cp1249"],
+    '1C1': ["#666", "cp1250"],
     '2C': [],
     '3C': [],
     '4C': [],
@@ -39,19 +39,23 @@ const productsLocation = {
     '2L': [],
     '1M': [],
     '2M': [],
-    '1N': ["PLATOS 654",],
+    '1N1': ["cp0283",],
      };
+global.productsLocation = productsLocation 
 
 var productsStock = {
-    "GLOBO 123": 658,
-    "VASOS 12": 365,
-    "GLOBO 478": 217, 
-    "VASOS 541": 552,
-    "GLOBO 412": 51,
-    "GLOBOS 542": 47,
-    "PLATOS 654": 5,
-    "BOMBILLAS 565": 15,
-    "PLATOS 247": 465,
+    "cp10116": 658,
+    "cp10117": 365,
+    "pbla08": 217, 
+    "p3958": 552,
+    "cpbla11": 51,
+    "cp0057": 47,
+    "cpbla14": 5,
+    "cpbla13": 15,
+    "cp0282": 465,
     "#666": 666,
-    "SERVILLETAS 465": 999,
+    "cp1249": 999,
+    "cp0283": 16
   };
+
+global.productsStock = productsStock 

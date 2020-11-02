@@ -19,73 +19,50 @@ import { Searchbar } from "react-native-paper";
 import SearchBar from "../../components/Searchbar.tsx";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 let { height, width } = Dimensions.get("window");
-const productsLocation = {
-  A1: ["#001", "#002"],
-  A2: ["#009", "#016"],
-  A3: ["#005", "#013"],
-  B1: ["#102", "#222"],
-  C1: ["#666", "#004"],
-};
-const productsStock = {
-  "#001": 658,
-  "#002": 365,
-  "#009": 51,
-  "#016": 47,
-  "#005": 5,
-  "#013": 15,
-  "#102": 465,
-  "#222": 169,
-  "#666": 666,
-  "#004": 78,
-};
-const getKeyByValue = (dict, productId) => {
-  return Object.keys(dict).find(
-    (key) => dict[key].filter((product) => product === productId).length
-  );
-};
-const bodega = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState("");
-  global.currentScreenIndex = "bodega";
-  const renderResults = () => {
-    if (searchQuery === "") {
-      return null;
+
+const inventarioAdd = () => {
+  let [nombre, setNombre] = useState('');
+  let [cantidad, setCantidad] = useState('');
+  global.currentScreenIndex = "InventarioAdd";
+
+  handleSubmit = (nombre, cantidad) => {
+
+    setErrortext('');
+    if (!nombre) {
+      alert('Ingrese Nombre del Producto');
+      return;
     }
-    const filteredProducts = [];
-    Object.keys(productsLocation).map(function (key, index) {
-      const filterProducts = productsLocation[key].filter((product) =>
-        product.includes(searchQuery)
-      );
-      filteredProducts.push(...filterProducts);
-    });
-    const searchResults = filteredProducts.map((filteredProduct) => {
-      const stock = productsStock[filteredProduct];
-      return {
-        productId: filteredProduct,
-        stock,
-        location: getKeyByValue(productsLocation, filteredProduct),
-      };
-    });
-    return searchResults.map((searchResult) => (
-      <Text
-        style={{ paddingHorizontal: 15 }}
-      >{`El producto ${searchResult.productId} se encuentra en ${searchResult.location} y tiene un stock de ${searchResult.stock}.`}</Text>
-    ));
-  };
-  return (
+    if (!cantidad) {
+      alert('Ingrese CAntidad del Producto a Agregar');
+      return;
+    }
+    for (i in length(global.productsStock)){
+      if (nombre == global.productsStock[i] ){
+        global.productsStock[i] += cantidad
+        return;
+      }
+     else {
+       alert('Nombre de Producto Incorrecto')
+       return;
+     } 
+    } 
+    
+  }
+  
+  return ( 
     <KeyboardAwareScrollView
       behavior={"padding"}
       enabled
       style={styles.scrollView}
       resetScrollToCoords={{ x: 0, y: 0 }}
-      contentContainerStyle={{ flex: 1 }}
+      contentContainerStyle={{ flex: 1 }}s
       scrollEnabled={true}
     >
       <View style={styles.mainBody}>
         <View style={{ flex: 5, alignItems: "center", marginTop: 5 }}>
           <>
             <Image
-              source={require("../../Image/mapalogo.png")}
+              source={require("../../Image/mapa.jpg")}
               style={{
                 width: 300,
                 height: 190,
@@ -93,16 +70,39 @@ const bodega = () => {
                 margin: 0,
               }}
             />
-            {renderResults()}
+                   <View >
+    <TextInput
+      placeholder="Nombre del Producto"
+      style={styles.textInput}
+      maxLength={30}
+      onBlur={Keyboard.dismiss} 
+      value={nombre}
+
+    />
+        <TextInput
+      placeholder="Cantidad del Producto"
+      style={styles.textInput}
+      
+      keyboardType="number-pad"
+      
+      onBlur={Keyboard.dismiss} 
+      value={cantidad}
+    />
+  </View>
+           
           </>
+          
         </View>
-        <Searchbar
-          placeholder="Buscar item"
-          onChangeText={(query) => {
-            setSearchQuery(query);
-          }}
-          value={searchQuery}
-        />
+        <View style={styles.inputContainer}>
+  <TouchableOpacity
+    style={styles.saveButton}
+    onChangeText={this.handleSubmit}
+  >
+    <Text style={styles.saveButtonText}>Save</Text>
+  </TouchableOpacity>
+</View>
+
+              
       </View>
     </KeyboardAwareScrollView>
   );
@@ -114,6 +114,9 @@ const styles = StyleSheet.create({
     minHeight: 120,
 
     backgroundColor: "transparent",
+  },
+  inputContainer: {
+    paddingTop: 15
   },
   mainBody: {
     flex: 1,
@@ -141,5 +144,30 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingRight: 5,
   },
+  saveButton: {
+    borderWidth: 1,
+    borderColor: 'white',
+    backgroundColor: 'white',
+    padding: 15,
+    margin: 5
+  },
+  saveButtonText: {
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  textInput: {
+    borderColor: '#CCCCCC',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    height: 50,
+    fontSize: 25,
+    paddingLeft: 20,
+    paddingRight: 20
+  }
+  
 });
-export default bodega;
+
+export default inventarioAdd;
+
+

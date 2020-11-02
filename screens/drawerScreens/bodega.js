@@ -19,30 +19,7 @@ import { Searchbar } from "react-native-paper";
 import SearchBar from "../../components/Searchbar.tsx";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 let { height, width } = Dimensions.get("window");
-const productsLocation = {
-  '1A1': ["GLOBO 123", "VASOS 789"],
-  '1A2': ["GLOBO 478", "VASOS 541"],
-  '1A3': ["GLOBO 129", "VASOS 128"],
-  '2A': ["GLOBO 412", "PLATOS 247"],
-  '1B': [ "GLOBOS 542"],
-  '2B': ["SERVILLETAS 465"],
-  '1C': ["#666", "BOMBILLAS 565"],
-  '1N': ["PLATOS 654",],
-   };
 
-var productsStock = {
-  "GLOBO 123": 658,
-  "VASOS 12": 365,
-  "GLOBO 478": 217, 
-  "VASOS 541": 552,
-  "GLOBO 412": 51,
-  "GLOBOS 542": 47,
-  "PLATOS 654": 5,
-  "BOMBILLAS 565": 15,
-  "PLATOS 247": 465,
-  "#666": 666,
-  "SERVILLETAS 465": 999,
-};
 const getKeyByValue = (dict, productId) => {
   return Object.keys(dict).find(
     (key) => dict[key].filter((product) => product === productId).length
@@ -52,6 +29,8 @@ const bodega = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("");
   global.currentScreenIndex = "bodega";
+
+
   const renderResults = () => {
     if (searchQuery === "") {
       return null;

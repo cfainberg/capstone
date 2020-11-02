@@ -21,23 +21,41 @@ import {
 
 
 const pedido = ({navigation}) => {
-  const [items, setItems] = useState(['Nombre']);
-  const [itemsFiltrados, setItemsFiltrados] = useState(items) 
+  const [nombre, setNombre] = useState(['']);
+  const [rut, setRUT] = useState(['']);
+  const [producto, setproducto] = useState(['']);
+  const [cantidad, setcantidad] = useState(['']);
+  let [errortext, setErrortext] = useState(''); 
 
 
   global.currentScreenIndex = 'pedido';
-  const searchItem = (text) => {
-    const filteredItems = items.filter((item) => item.includes(text))
-    console.log(filteredItems)
-    setItemsFiltrados(filteredItems)
-  
-  }
-  const renderResults = () => {
-    return (itemsFiltrados.map((item) => <Text>{item}</Text>))
-  }
+
+  const handleSubmitPress = () => {
+    setErrortext('');
+    if (!nombre) {
+      alert('Por favor rellenar nombre');
+      return;
+    }
+    if (!rut) {
+      alert('Por favor rellenar RUT');
+      return;
+    }
+
+  };
+
+  // const renderResults = () => {
+  //   return (itemsFiltrados.map((item) => <Text>{item}</Text>))
+  // }
 
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+            behavior={"padding"}
+            enabled
+            style={styles.scrollView}
+           resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={{ flex: 1 }}
+            scrollEnabled={true}
+      >
       <View style={styles.mainBody}>
       <View style={{flex: 1, flexDirection: 'row-reverse'}}>
       <Image
@@ -55,10 +73,43 @@ const pedido = ({navigation}) => {
     </View>
     <View style={{ flex: 2, alignItems: 'center', marginTop: 0 }}>
     <TextInput
-      style={{ height: 40, borderColor: 'black', borderWidth: 1,padding: 10 }}
+    placeholder="Nombre Empresa"
+      style={styles.input}
+      underlineColorAndroid = "transparent"
+      value={nombre}
+      
         />
-      {renderResults()}  
+    <Text style={{ fontSize: 7, margin: 0 , padding:0, color: 'white'}}>
+      -------------------------------------------------------------------------------------------
+    </Text>
+      {/* {renderResults()}   */}
+      <TextInput
+      placeholder="RUT Empresa"
+      style={styles.input}
+      value={rut}
+        />
+      {/* {renderResults()}   */}
+      <Text style={{ fontSize: 7, margin: 0 , padding:0, color: 'white'}}>
+      -------------------------------------------------------------------------------------------
+    </Text>
+    <TextInput
+      placeholder="Producto"
+      style={styles.input}
+      value={producto}
+        />
+            <TextInput
+      placeholder="Cantidad Producto"
+      style={styles.input}
+      value={cantidad}
+        />
+      <TouchableOpacity
+              style={styles.buttonStyle}
+              activeOpacity={0.5}
+              onPress={handleSubmitPress}>
+              <Text style={styles.buttonTextStyle}>Submit</Text>
+            </TouchableOpacity>
     </View>
+
     </View>
     </KeyboardAwareScrollView>
     );
@@ -72,6 +123,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       backgroundColor: '#E56C7A',
     },
+    input: {
+      margin: 15,
+      height: 40,
+      borderColor: 'transparent',
+      borderWidth: 1
+   },
     buttonStyle: {
       backgroundColor: '#a3003c',
       borderWidth: 0,
