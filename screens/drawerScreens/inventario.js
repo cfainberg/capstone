@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     mainBody: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: '#E56C7A',
+      backgroundColor: '#white',
     },
     buttonStyle: {
       backgroundColor: '#a3003c',

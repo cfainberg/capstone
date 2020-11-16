@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   mainBody: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#E56C7A",
+    backgroundColor: "white",
   },
   buttonStyle: {
     backgroundColor: "#a3003c",
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     borderWidth: 1,
-    borderColor: 'white',
-    backgroundColor: 'white',
+    borderColor: '#E56C7A',
+    backgroundColor: '#E56C7A',
     padding: 15,
     margin: 5
   },

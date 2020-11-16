@@ -83,12 +83,12 @@ const styles = StyleSheet.create({
     mainBody: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: '#E56C7A',
+      backgroundColor: 'white',
     },
     buttonStyle: {
       backgroundColor: '#a3003c',
       borderWidth: 0,
-      color: 'white',
+      color: '#E56C7A',
       borderColor: '#a3003c',
       height: 40,
       alignSelf: 'center',
