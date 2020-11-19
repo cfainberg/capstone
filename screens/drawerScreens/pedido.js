@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     mainBody: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: '#white',
+      backgroundColor: 'white',
     },
     input: {
       margin: 15,

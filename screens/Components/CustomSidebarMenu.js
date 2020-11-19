@@ -28,7 +28,7 @@ const CustomSidebarMenu = props => {
       props.navigation.toggleDrawer();
       Alert.alert(
         'Logout',
-        'Segurito?',
+        'Esta seguro de querer desconectarse?',
         [
           {
             text: 'Cancel',

@@ -56,7 +56,7 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.mainBody}>
         <View style={{ flex: 1, alignItems: 'center', marginTop: 100 }}>
             <Image
-                    source={require('../../Image/logo.png')}
+                    source={require('../../Image/logo2.png')}
                     style={{
                     width: '50%',
                     height: 150,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 
      inputStyle: {
         flex: 1,
-        color: 'white',
+        color: 'black',
         paddingLeft: 95,
         alignSelf: 'center',
         paddingRight: 5,

@@ -18,12 +18,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Loader from './Components/Loader';
 
 const LoginScreen = props => {
-  let [userEmail, setUserEmail] = useState('');
-  let [userPassword, setUserPassword] = useState('');
+  let [userEmail, setUserEmail] = useState('bodega3@cotillonparada.cl');
+  let [userPassword, setUserPassword] = useState('Cotillon2020');
   let [loading, setLoading] = useState(false);
   let [errortext, setErrortext] = useState('');
 
   const handleSubmitPress = () => {
+    console.log('quesucede')
     setErrortext('');
     if (!userEmail) {
       alert('Usuario');
@@ -32,9 +33,10 @@ const LoginScreen = props => {
     if (!userPassword) {
       alert('Contraseña');
       return;
+      
     }
     setLoading(true);
-    var dataToSend = { user_email: userEmail, user_password: userPassword };
+    var dataToSend = { email: userEmail, password: userPassword, company: '20181106122223855001' };
     var formBody = [];
     for (var key in dataToSend) {
       var encodedKey = encodeURIComponent(key);
@@ -42,23 +44,19 @@ const LoginScreen = props => {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-
-    fetch('https://aboutreact.herokuapp.com/login.php', {
-      method: 'POST',
-      body: formBody,
-      headers: {
-        //Header Defination
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
+    let login_url = BASE_URL + 'auth/emailLogin?' + formBody
+    login_url = login_url.replace('%40', "@")
+    console.log(login_url)
+    fetch(login_url, {
+      method: 'GET',
     }).then(response => response.json())
       .then(responseJson => {
         //Hide Loader
         setLoading(false);
-        console.log(responseJson);
+        // console.log(responseJson);
         // If server response message same as Data Matched
-        if (responseJson.status == 1) {
-          AsyncStorage.setItem('user_id', responseJson.data[0].user_id);
-          console.log(responseJson.data[0].user_id);
+        if (responseJson.success) {
+          AsyncStorage.setItem('authorization', responseJson.authResult.access_token);
           props.navigation.navigate('DrawerNavigationRoutes');
         } else {
           setErrortext('Please check your email id or password');
