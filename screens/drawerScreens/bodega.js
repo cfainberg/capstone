@@ -16,7 +16,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from "@react-native-community/async-storage";
 import SearchBar from "../../components/Searchbar.tsx";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 let { height, width } = Dimensions.get("window");
@@ -28,29 +28,58 @@ const getKeyByValue = (dict, productId) => {
 };
 const bodega = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [pageNumber, setPageNumber] = useState('0')
+  const [actualPage, setActualPage] = useState("1");
+  const [actualPageProducts, setActualPageProducts] = useState([]);
   const [location, setLocation] = useState("");
-  const [products, setProducts] = useState([])
-  const [totalPages, setTotalPages] = useState(1)
+  const [products, setProducts] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   global.currentScreenIndex = "bodega";
-  console.log(totalPages)
-  useEffect(()=> {
+  useEffect(() => {
     const get_products = async () => {
-       await AsyncStorage.getItem('authorization').then((token) => {
-        var bearer_token = 'Bearer ' + token;
-        let products_url = BASE_URL + 'sale/GetProducts?status=1&itemsPerPage=250&pageNumber=' + pageNumber
+      await AsyncStorage.getItem("authorization").then((token) => {
+        var bearer_token = "Bearer " + token;
+        let products_url =
+          BASE_URL + "sale/GetProducts?status=1&itemsPerPage=250&pageNumber=1";
+
         fetch(products_url, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Authorization': bearer_token,
-            'Content-Type': 'application/json'
-        }
-        }).then(response => {
-          return response.json()})
-          .then(responseJson => {
+            Authorization: bearer_token,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then(async (responseJson) => {
             //Hide Loader
-            setTotalPages(Math.ceil(responseJson.totalItems /250))
-            setProducts(responseJson.productList)
+            let tempProducts = [];
+            const tempTotalPages = Math.ceil(responseJson.totalItems / 250);
+            // tempProducts = [...tempProducts, ...responseJson.productList];
+            for (let i = 1; i < tempTotalPages + 1; i++) {
+              const itemsLeft = responseJson.totalItems - tempProducts.length;
+              const nextPageItems = itemsLeft >= 250 ? 250 : itemsLeft;
+              let products_url =
+                BASE_URL +
+                `sale/GetProducts?status=1&itemsPerPage=${nextPageItems}&pageNumber=${i}`;
+              await fetch(products_url, {
+                method: "GET",
+                headers: {
+                  Authorization: bearer_token,
+                  "Content-Type": "application/json",
+                },
+              })
+                .then((response) => {
+                  return response.json();
+                })
+                .then((responseJson) => {
+                  tempProducts = [...tempProducts, ...responseJson.productList];
+                });
+              await new Promise((r) => setTimeout(r, 100));
+            }
+            setTotalPages(tempTotalPages);
+            setProducts(tempProducts);
+            setActualPageProducts(tempProducts.slice(0, 251));
             // setLoading(false);
             // console.log(responseJson);
             // If server response message same as Data Matched
@@ -62,31 +91,70 @@ const bodega = () => {
             //   console.log('Please check your email id or password');
             // }
           })
-          .catch(error => {
+          .catch((error) => {
             //Hide Loader
             // setLoading(false);
             console.error(error);
           });
-        
-      })
-    }
-    get_products()
-  }, [])
+      });
+    };
+    get_products();
+  }, []);
+  useEffect(() => {
+    const tempActualPageProducts = products.slice(
+      (actualPage - 1) * 250,
+      parseInt(actualPage, 10) === totalPages
+        ? products.length
+        : actualPage * 250 + 1
+    );
+    setActualPageProducts(tempActualPageProducts);
+  }, [actualPage]);
   const filterProducts = () => {
-    if (searchQuery === '') {
-      return products;
+    if (searchQuery === "") {
+      return actualPageProducts;
     }
-    return products.filter((product) => product.code.includes(searchQuery))
-  }
+    return actualPageProducts.filter((product) =>
+      product.code.includes(searchQuery)
+    );
+  };
   const renderPages = () => {
-    const pagesButtons = []
-    for (let i = 0; i < totalPages; i++){
-      pagesButtons.push(    <Button key={i} style={styles.buttonStyle}>
-        <Text style={styles.inputStyle}>{i + 1}</Text>
-      </Button>)
+    const pagesButtons = [];
+    for (let i = 1; i < totalPages + 1; i++) {
+      const isActualPage = i === parseInt(actualPage, 10);
+      pagesButtons.push(
+        <Button
+          key={i}
+          style={{
+            backgroundColor: isActualPage ? "black" : "#a3003c",
+            borderWidth: 0,
+            color: "white",
+            borderColor: "#a3003c",
+            height: 40,
+            alignSelf: "center",
+            marginLeft: 40,
+            marginRight: 40,
+            marginTop: 30,
+            marginBottom: 30,
+          }}
+          onPress={() => {
+            setActualPage(i);
+          }}
+        >
+          <Text
+            style={{
+              alignSelf: "center",
+              color: "white",
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            {i}
+          </Text>
+        </Button>
+      );
     }
     return pagesButtons;
-  }
+  };
   const renderResults = () => {
     // if (searchQuery === "") {
     //   return null;
@@ -106,51 +174,59 @@ const bodega = () => {
     //     location: getKeyByValue(productsLocation, filteredProduct),
     //   };
     // });
-    const filteredProducts = filterProducts()
+    const filteredProducts = filterProducts();
     return filteredProducts.map((product) => (
-      <Text key={product.code}
+      <Text
+        // key={product.code}
         style={{ paddingHorizontal: 15 }}
       >{`El producto ${product.code} tiene un stock de ${product.stock}.`}</Text>
     ));
   };
+  console.log("RENDER");
   return (
     <>
-    <View style={{flex: 1}}>
-    <ScrollView
-      behavior={"padding"}
-      enabled
-      style={styles.scrollView}
-      contentContainerStyle={{ flexGrow: 1 }}
-      scrollEnabled={true}
-    >
-      <View style={styles.mainBody}>
-      <Searchbar
-          placeholder="Buscar item"
-          onChangeText={(query) => {
-            setSearchQuery(query);
-          }}
-          value={searchQuery}
-        />
-        <View style={{ flex: 5, alignItems: "center", marginTop: 5 }}>
-          <>
-            <Image
-              source={require("../../Image/mapa.jpg")}
-              style={{
-                width: 300,
-                height: 190,
-                resizeMode: "contain",
-                margin: 0,
+      <View style={{ flex: 1 }}>
+        <ScrollView
+          behavior={"padding"}
+          enabled
+          style={styles.scrollView}
+          contentContainerStyle={{ flexGrow: 1 }}
+          scrollEnabled={true}
+        >
+          <View style={styles.mainBody}>
+            <Searchbar
+              placeholder="Buscar item"
+              onChangeText={(query) => {
+                setSearchQuery(query);
               }}
+              value={searchQuery}
             />
-            {renderResults()}
-          </>
-        </View>
+            <View style={{ flex: 5, alignItems: "center", marginTop: 5 }}>
+              <>
+                <Image
+                  source={require("../../Image/mapa.jpg")}
+                  style={{
+                    width: 300,
+                    height: 190,
+                    resizeMode: "contain",
+                    margin: 0,
+                  }}
+                />
+                {renderResults()}
+              </>
+            </View>
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
-    </View>
-    <View style={{ flexDirection: "row" ,marginLeft: 20, justifyContent: 'space-evenly'}}>
-    {renderPages()}
-    </View>
+      <View
+        style={{
+          flexDirection: "row",
+          marginLeft: 10,
+          justifyContent: "space-around",
+        }}
+      >
+        {renderPages()}
+      </View>
     </>
   );
 };
