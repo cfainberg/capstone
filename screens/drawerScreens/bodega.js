@@ -108,6 +108,7 @@ const bodega = () => {
         : actualPage * 250 + 1
     );
     setActualPageProducts(tempActualPageProducts);
+    
   }, [actualPage]);
   const filterProducts = () => {
     if (searchQuery === "") {
@@ -174,13 +175,19 @@ const bodega = () => {
     //     location: getKeyByValue(productsLocation, filteredProduct),
     //   };
     // });
+
+
     const filteredProducts = filterProducts();
+
+
     return filteredProducts.map((product) => (
       <Text
         // key={product.code}
         style={{ paddingHorizontal: 15 }}
-      >{`El producto ${product.code} tiene un stock de ${product.stock}.`}</Text>
+      >{`El producto ${product.code} tiene un stock de ${product.stock} en ${productsLocation[Math.floor(Math.random() * productsLocation.length)]}.`}</Text>
     ));
+    
+    
   };
   console.log("RENDER");
   return (
