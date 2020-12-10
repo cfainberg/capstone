@@ -2,19 +2,20 @@
 /* https://aboutreact.com/react-native-login-and-signup/ */
 
 //Import React
-import React from 'react';
-
+import "./shim.js";
+import React from "react";
+console.disableYellowBox = true;
 //Import Navigators from React Navigation
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 //Import all the screens needed
-import SplashScreen from './screens/SplashScreen';
-import LoginScreen from './screens/LoginScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import DrawerNavigationRoutes from './screens/DrawerNavigatorRoutes';
-import './stock.js';
-import './constants.js';
+import SplashScreen from "./screens/SplashScreen";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import DrawerNavigationRoutes from "./screens/DrawerNavigatorRoutes";
+import "./stock.js";
+import "./constants.js";
 
 const Auth = createStackNavigator({
   //Stack Navigator for Login and Sign up Screen
@@ -27,18 +28,18 @@ const Auth = createStackNavigator({
   RegisterScreen: {
     screen: RegisterScreen,
     navigationOptions: {
-      title: 'Register',
+      title: "Register",
       headerStyle: {
-        backgroundColor: '#307ecc',
+        backgroundColor: "#307ecc",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     },
   },
 });
 
 /* Switch Navigator for those screens which needs to be switched only once
   and we don't want to switch back once we switch from them to the next one */
-const App = createSwitchNavigator({ 
+const App = createSwitchNavigator({
   SplashScreen: {
     /* SplashScreen which will come once for 5 Seconds */
     screen: SplashScreen,

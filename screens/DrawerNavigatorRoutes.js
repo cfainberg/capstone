@@ -1,33 +1,30 @@
-
-
 //Import React
-import React from 'react';
+import React from "react";
 
 //Import Navigators
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
 
 //Import External Screens
-import HomeScreen from './drawerScreens/HomeScreen';
-import SettingsScreen from './drawerScreens/SettingsScreen';
-import CustomSidebarMenu from './Components/CustomSidebarMenu';
-import NavigationDrawerHeader from './Components/NavigationDrawerHeader';
-import inventario from './drawerScreens/inventario';
-import inventarioAdd from './drawerScreens/inventarioAdd';
-import bodega from './drawerScreens/bodega';
-import pedido from './drawerScreens/pedido';
-
+import HomeScreen from "./drawerScreens/HomeScreen";
+import SettingsScreen from "./drawerScreens/SettingsScreen";
+import CustomSidebarMenu from "./Components/CustomSidebarMenu";
+import NavigationDrawerHeader from "./Components/NavigationDrawerHeader";
+import inventario from "./drawerScreens/inventario";
+import inventarioAdd from "./drawerScreens/inventarioAdd";
+import bodega from "./drawerScreens/bodega";
+import pedido from "./drawerScreens/pedido";
 
 const FirstActivity_StackNavigator = createStackNavigator({
   First: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      title: 'Homscreen',
+      title: "Homescreen",
       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
-        backgroundColor: '#a3003c',
+        backgroundColor: "#a3003c",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     }),
   },
 });
@@ -36,12 +33,12 @@ const SecondActivity_StackNavigator = createStackNavigator({
   First: {
     screen: SettingsScreen,
     navigationOptions: ({ navigation }) => ({
-      title: 'Setting Screen',
+      title: "Setting Screen",
       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
-        backgroundColor: '#a3003c',
+        backgroundColor: "#a3003c",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     }),
   },
 });
@@ -49,41 +46,41 @@ const ThirdActivity_StackNavigator = createStackNavigator({
   First: {
     screen: inventario,
     navigationOptions: ({ navigation }) => ({
-      title: 'Inventario',
+      title: "Inventario",
       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
-        backgroundColor: '#a3003c',
+        backgroundColor: "#a3003c",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     }),
-  }
+  },
 });
 
 const FActivity_StackNavigator = createStackNavigator({
   First: {
     screen: bodega,
     navigationOptions: ({ navigation }) => ({
-      title: 'bodega',
+      title: "Bodega",
       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
-        backgroundColor: '#a3003c',
+        backgroundColor: "#a3003c",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     }),
-  }
+  },
 });
 const hacerPedidos_StackNavigator = createStackNavigator({
   First: {
     screen: pedido,
     navigationOptions: ({ navigation }) => ({
-      title: 'pedido',
+      title: "Pedidos",
       //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
       headerStyle: {
-        backgroundColor: '#a3003c',
+        backgroundColor: "#a3003c",
       },
-      headerTintColor: '#fff',
+      headerTintColor: "#fff",
     }),
-  }
+  },
 });
 
 //  const DActivity_StackNavigator = createStackNavigator({
@@ -97,70 +94,67 @@ const hacerPedidos_StackNavigator = createStackNavigator({
 //        },
 //        headerTintColor: '#fff',
 //      }),
-//    } 
+//    }
 //  });
- const AgActivity_StackNavigator = createStackNavigator({
-     First: {
-       screen: inventarioAdd,
-       navigationOptions: ({ navigation }) => ({
-         title: 'inventarioAdd',
-         //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
-         headerStyle: {
-           backgroundColor: '#a3003c',
-         },
-         headerTintColor: '#fff',
-       }),
-     }
-   });
+const AgActivity_StackNavigator = createStackNavigator({
+  First: {
+    screen: inventarioAdd,
+    navigationOptions: ({ navigation }) => ({
+      title: "inventarioAdd",
+      //headerLeft: () => <NavigationDrawerHeader navigationProps={navigation} />,
+      headerStyle: {
+        backgroundColor: "#a3003c",
+      },
+      headerTintColor: "#fff",
+    }),
+  },
+});
 const DrawerNavigatorRoutes = createDrawerNavigator(
   {
     HomeScreen: {
       screen: FirstActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'Home Screen',
+        drawerLabel: "Home Screen",
       },
     },
     SettingsScreen: {
       screen: SecondActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'Setting Screen',
+        drawerLabel: "Setting Screen",
       },
     },
     inventario: {
       screen: ThirdActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'inventario',
+        drawerLabel: "inventario",
       },
     },
-
 
     bodega: {
       screen: FActivity_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'bodega',
+        drawerLabel: "bodega",
       },
     },
     pedido: {
       screen: hacerPedidos_StackNavigator,
       navigationOptions: {
-        drawerLabel: 'pedido',
+        drawerLabel: "pedido",
       },
     },
 
-  
-   inventarioAdd: {
-     screen: AgActivity_StackNavigator,
-     navigationOptions: {
-       drawerLabel: 'inventarioAdd',
-       },
-     },
-
+    inventarioAdd: {
+      screen: AgActivity_StackNavigator,
+      navigationOptions: {
+        drawerLabel: "inventarioAdd",
+      },
+    },
   },
   {
     contentComponent: CustomSidebarMenu,
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle',
+    drawerOpenRoute: "DrawerOpen",
+    drawerCloseRoute: "DrawerClose",
+    drawerToggleRoute: "DrawerToggle",
   }
 );
 export default DrawerNavigatorRoutes;
